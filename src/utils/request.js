@@ -1,38 +1,35 @@
-export async function request({
-  url,
-  method = 'GET',
-  headers,
-  body = null
-} = {}) {
-  if (!url) {
-    throw new Error('请求地址不能为空')
-  }
+import axios from 'axios'
 
-  const normalizedMethod = method.toUpperCase()
-  const isJsonBody = body && typeof body === 'object' && !(body instanceof FormData)
-  const normalizedHeaders = new Headers(headers || {})
+// 创建 axios 实例
+const service = axios.create({
+  baseURL: '/api',    // 统一的接口前缀
+  timeout: 8000       // 超时时间
+})
 
-  if (isJsonBody && !normalizedHeaders.has('Content-Type')) {
-    normalizedHeaders.set('Content-Type', 'application/json')
-  }
+// 请求拦截器
+service.interceptors.request.use(
+    (config) => {
+      // 这里可以加 token
+      // const token = localStorage.getItem('token')
+      // if (token) config.headers['Authorization'] = token
 
-  const normalizedBody = isJsonBody ? JSON.stringify(body) : body ?? undefined
+      return config
+    },
+    (error) => {
+      return Promise.reject(error)
+    }
+)
 
-  const response = await fetch(url, {
-    method: normalizedMethod,
-    headers: normalizedHeaders,
-    body: normalizedMethod === 'GET' ? undefined : normalizedBody
-  })
+// 响应拦截器
+service.interceptors.response.use(
+    (response) => {
+      const res = response.data
+      return res   // 这里统一返回 data
+    },
+    (error) => {
+      console.error('Request Error:', error)
+      return Promise.reject(error)
+    }
+)
 
-  if (!response.ok) {
-    const errorText = await response.text().catch(() => '')
-    throw new Error(`接口异常：${response.status}${errorText ? ` - ${errorText}` : ''}`)
-  }
-
-  const contentType = response.headers.get('Content-Type') || ''
-  if (contentType.includes('application/json')) {
-    return await response.json()
-  }
-
-  return await response.text()
-}
+export default service
