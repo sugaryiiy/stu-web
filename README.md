@@ -37,7 +37,7 @@ npm run preview
 }
 ```
 
-如需自定义接口地址，可在 `src/views/Overview/OverviewPage.vue` 中调整 `fetch('/api/dashboard')` 的路径。
+如需自定义接口地址，可在 `src/views/Overview/OverviewPage.vue` 中调整 `request({ url: '/api/dashboard' })` 的路径。
 
 ## 页面结构
 
@@ -47,7 +47,7 @@ npm run preview
 - `src/views/Settings/SettingsPage.vue`：系统设置占位页，预留保存按钮。
 - `src/App.vue`：挂载侧边栏、顶部栏，并按导航切换上述页面组件。
 
-## AJAX 组件
+## 请求封装
 
-- `src/components/AjaxProvider.vue` 封装了通用的请求逻辑，挂载后可自动触发接口调用，并通过事件或插槽暴露 `loading`、`error`、`data` 与 `refresh` 方法。
-- 在 `App.vue` 中通过 `<AjaxProvider url="/api/dashboard" @success="applyResponse" />` 使用，用于同步后台数据，并在请求失败时可点击“重试”按钮再次发起请求。
+- `src/request/request.js` 提供了统一的请求方法，默认使用 `GET` 并对 JSON 请求体和接口异常进行封装。
+- 总览页通过 `request({ url: '/api/dashboard' })` 拉取仪表盘数据，若请求失败会在页面顶部显示错误提示并提供“重试”按钮。
