@@ -15,3 +15,26 @@ npm run dev
 npm run build
 npm run preview
 ```
+
+## 后端数据对接
+
+页面启动后会在挂载时通过 `GET /api/dashboard` 拉取仪表盘数据，期望的返回示例：
+
+```json
+{
+  "cards": [
+    { "title": "GMV（今日）", "value": "¥ 1,248,000", "trend": 12.4, "progress": 72 }
+  ],
+  "channels": [
+    { "name": "抖音直播", "desc": "直播带货 + 短视频投放", "value": "¥ 618,000", "trend": 16.8 }
+  ],
+  "tasks": [
+    { "title": "更新首页焦点图", "desc": "配合 12.12 节奏替换素材", "status": "紧急" }
+  ],
+  "orders": [
+    { "id": "#2024120081", "channel": "抖音直播", "amount": 3280, "status": "已完成" }
+  ]
+}
+```
+
+如需自定义接口地址，可在 `src/App.vue` 中调整 `fetch('/api/dashboard')` 的路径。
