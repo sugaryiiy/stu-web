@@ -19,7 +19,6 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { request } from '../../request/request'
 import ChannelPanel from '../../components/ChannelPanel.vue'
 import OrdersTable from '../../components/OrdersTable.vue'
 import StatsGrid from '../../components/StatsGrid.vue'
