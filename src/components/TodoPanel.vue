@@ -18,11 +18,9 @@
 </template>
 
 <script setup>
-import { type PropType } from 'vue'
-
-const props = defineProps({
+defineProps({
   tasks: {
-    type: Array as PropType<Array<{ title: string; desc: string; status: string }>>,
+    type: Array,
     default: () => []
   }
 })

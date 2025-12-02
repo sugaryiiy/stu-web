@@ -17,11 +17,9 @@
 </template>
 
 <script setup>
-import { type PropType } from 'vue'
-
-const props = defineProps({
+defineProps({
   cards: {
-    type: Array as PropType<Array<{ title: string; value: string; trend: number; progress: number }>>,
+    type: Array,
     default: () => []
   }
 })

@@ -22,11 +22,9 @@
 </template>
 
 <script setup>
-import { type PropType } from 'vue'
-
-const props = defineProps({
+defineProps({
   channels: {
-    type: Array as PropType<Array<{ name: string; desc: string; value: string; trend: number }>>,
+    type: Array,
     default: () => []
   }
 })

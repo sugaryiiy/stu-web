@@ -26,11 +26,9 @@
 </template>
 
 <script setup>
-import { type PropType } from 'vue'
-
-const props = defineProps({
+defineProps({
   orders: {
-    type: Array as PropType<Array<{ id: string; channel: string; amount: number; status: string }>>,
+    type: Array,
     default: () => []
   }
 })
