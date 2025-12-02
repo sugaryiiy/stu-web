@@ -89,10 +89,6 @@
           <p class="preview-title">JsonReq</p>
           <pre>{{ jsonPayload }}</pre>
         </div>
-        <div v-if="backendResultText">
-          <p class="preview-title">后端生成结果 (JsonReq)</p>
-          <pre>{{ backendResultText }}</pre>
-        </div>
       </div>
 
       <p v-if="toast" class="toast">{{ toast }}</p>
