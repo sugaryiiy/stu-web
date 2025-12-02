@@ -1,42 +1,40 @@
 <template>
-  <div class="layout">
-    <Sidebar :items="navItems" :active="activePage" @navigate="setActivePage" />
+  <div v-if="isAuthPage" class="auth-wrapper">
+    <RouterView />
+  </div>
+  <div v-else class="layout">
+    <Sidebar :items="navItems" :active="activeNav" @navigate="navigate" />
     <main class="content">
       <TopBar />
-      <component :is="currentPage" />
+      <RouterView />
     </main>
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
+import { RouterView, useRoute, useRouter } from 'vue-router'
 import Sidebar from './components/Sidebar.vue'
 import TopBar from './components/TopBar.vue'
-import OverviewPage from './views/Overview/OverviewPage.vue'
-import OrdersPage from './views/Orders/OrdersPage.vue'
-import UsersPage from './views/Users/UsersPage.vue'
-import SettingsPage from './views/Settings/SettingsPage.vue'
+
+const route = useRoute()
+const router = useRouter()
 
 const navItems = [
-  { key: 'overview', label: '总览', icon: '📊' },
-  { key: 'orders', label: '订单中心', icon: '🛒' },
-  { key: 'users', label: '用户管理', icon: '👥' },
-  { key: 'settings', label: '系统设置', icon: '⚙️' }
+  { key: 'overview', label: '总览', icon: '📊', path: '/' },
+  { key: 'orders', label: '订单中心', icon: '🛒', path: '/orders' },
+  { key: 'users', label: '用户管理', icon: '👥', path: '/users' },
+  { key: 'settings', label: '系统设置', icon: '⚙️', path: '/settings' }
 ]
 
-const pages = {
-  overview: OverviewPage,
-  orders: OrdersPage,
-  users: UsersPage,
-  settings: SettingsPage
-}
+const activeNav = computed(() => route.value?.meta?.navKey ?? '')
+const isAuthPage = computed(() => route.value?.meta?.layout === 'auth')
 
-const activePage = ref('overview')
-
-const currentPage = computed(() => pages[activePage.value] ?? OverviewPage)
-
-const setActivePage = (key) => {
-  activePage.value = key
+const navigate = (key) => {
+  const target = navItems.find((item) => item.key === key)
+  if (target) {
+    router.push(target.path)
+  }
 }
 </script>
 
@@ -53,6 +51,10 @@ const setActivePage = (key) => {
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+.auth-wrapper {
+  min-height: 100vh;
 }
 
 @media (max-width: 960px) {
