@@ -24,7 +24,8 @@ const navItems = [
   { key: 'overview', label: '总览', icon: '📊', path: '/' },
   { key: 'orders', label: '订单中心', icon: '🛒', path: '/orders' },
   { key: 'users', label: '用户管理', icon: '👥', path: '/users' },
-  { key: 'settings', label: '系统设置', icon: '⚙️', path: '/settings' }
+  { key: 'settings', label: '系统设置', icon: '⚙️', path: '/settings' },
+  { key: 'signature', label: '验签工具', icon: '🔏', path: '/signature' }
 ]
 
 const activeNav = computed(() => route.value?.meta?.navKey ?? '')
