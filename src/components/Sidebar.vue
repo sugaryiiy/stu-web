@@ -9,22 +9,16 @@
     </div>
     <nav class="menu">
       <p class="menu-label">导航</p>
-      <a class="menu-item active" href="#">
-        <span class="icon">📊</span>
-        总览
-      </a>
-      <a class="menu-item" href="#">
-        <span class="icon">🛒</span>
-        订单中心
-      </a>
-      <a class="menu-item" href="#">
-        <span class="icon">👥</span>
-        用户管理
-      </a>
-      <a class="menu-item" href="#">
-        <span class="icon">⚙️</span>
-        系统设置
-      </a>
+      <button
+        v-for="item in items"
+        :key="item.key"
+        class="menu-item"
+        :class="{ active: item.key === active }"
+        @click="$emit('navigate', item.key)"
+      >
+        <span class="icon">{{ item.icon }}</span>
+        {{ item.label }}
+      </button>
     </nav>
     <div class="upgrade">
       <p>专属运营顾问</p>
@@ -33,6 +27,19 @@
     </div>
   </aside>
 </template>
+
+<script setup>
+const props = defineProps({
+  items: {
+    type: Array,
+    default: () => []
+  },
+  active: {
+    type: String,
+    default: ''
+  }
+})
+</script>
 
 <style scoped>
 .sidebar {
@@ -97,6 +104,11 @@
   padding: 12px;
   border-radius: 12px;
   color: #e2e8f0;
+  background: transparent;
+  border: none;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
   transition: background 0.2s ease, transform 0.2s ease;
 }
 

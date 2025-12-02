@@ -37,7 +37,15 @@ npm run preview
 }
 ```
 
-如需自定义接口地址，可在 `src/App.vue` 中调整 `fetch('/api/dashboard')` 的路径。
+如需自定义接口地址，可在 `src/views/Overview/OverviewPage.vue` 中调整 `fetch('/api/dashboard')` 的路径。
+
+## 页面结构
+
+- `src/views/Overview/OverviewPage.vue`：总览页（含接口数据拉取、指标卡片、渠道、待办、订单表格）。
+- `src/views/Orders/OrdersPage.vue`：订单中心占位页，预留导出与创建按钮。
+- `src/views/Users/UsersPage.vue`：用户管理占位页，预留导出与新增按钮。
+- `src/views/Settings/SettingsPage.vue`：系统设置占位页，预留保存按钮。
+- `src/App.vue`：挂载侧边栏、顶部栏，并按导航切换上述页面组件。
 
 ## AJAX 组件
 
