@@ -9,9 +9,11 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(
     (config) => {
-      // 这里可以加 token
-      // const token = localStorage.getItem('token')
-      // if (token) config.headers['Authorization'] = token
+      // 追加登录态 token，便于后端鉴权
+      const token = localStorage.getItem('token')
+      if (token) {
+        config.headers['Authorization'] = token
+      }
 
       return config
     },
@@ -27,6 +29,13 @@ service.interceptors.response.use(
       return res   // 这里统一返回 data
     },
     (error) => {
+      if (error?.response?.status === 401) {
+        localStorage.removeItem('token')
+        // 避免在非浏览环境调用 window
+        if (typeof window !== 'undefined') {
+          window.location.href = '/login'
+        }
+      }
       console.error('Request Error:', error)
       return Promise.reject(error)
     }

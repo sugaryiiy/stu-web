@@ -4,6 +4,7 @@ import OverviewPage from '@/views/Overview/OverviewPage.vue'
 import OrdersPage from '@/views/Orders/OrdersPage.vue'
 import UsersPage from '@/views/Users/UsersPage.vue'
 import SettingsPage from '@/views/Settings/SettingsPage.vue'
+import SignatureToolPage from '@/views/SignatureTool/SignatureToolPage.vue'
 
 const routes = [
   {
@@ -48,6 +49,15 @@ const routes = [
     meta: {
       requiresAuth: true,
       navKey: 'settings'
+    }
+  },
+  {
+    path: '/signature',
+    name: 'signature',
+    component: SignatureToolPage,
+    meta: {
+      requiresAuth: true,
+      navKey: 'signature'
     }
   }
 ]
