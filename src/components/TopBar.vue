@@ -7,11 +7,16 @@
     <div class="topbar-actions">
       <button class="ghost">导出报表</button>
       <button class="primary">新建活动</button>
+      <button class="ghost" @click="handleLogout">退出登录</button>
     </div>
   </header>
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
 defineProps({
   title: {
     type: String,
@@ -22,6 +27,11 @@ defineProps({
     default: '实时掌握业务健康度与增长趋势'
   }
 })
+
+const handleLogout = () => {
+  localStorage.removeItem('token')
+  router.push('/login')
+}
 </script>
 
 <style scoped>
