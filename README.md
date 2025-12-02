@@ -1,6 +1,6 @@
 # Vue 前端管理系统
 
-使用 Vite + Vue 3 构建的轻量级运营管理面板示例，包含导航侧边栏、指标卡片、渠道表现、待办任务与订单表格等模块。
+使用 Vite + Vue 3 构建的轻量级运营管理面板示例，包含导航侧边栏、指标卡片、渠道表现、待办任务、订单表格等模块，并内置美化的输入框、下拉框与表格组件方便复用。
 
 ## 开发
 
@@ -42,10 +42,16 @@ npm run preview
 ## 页面结构
 
 - `src/views/Overview/OverviewPage.vue`：总览页（含接口数据拉取、指标卡片、渠道、待办、订单表格）。
-- `src/views/Orders/OrdersPage.vue`：订单中心占位页，预留导出与创建按钮。
+- `src/views/Orders/OrdersPage.vue`：订单中心，带搜索/筛选（下拉框、文本框）与自定义表格展示近期订单。
 - `src/views/Users/UsersPage.vue`：用户管理占位页，预留导出与新增按钮。
 - `src/views/Settings/SettingsPage.vue`：系统设置占位页，预留保存按钮。
 - `src/App.vue`：挂载侧边栏、顶部栏，并按导航切换上述页面组件。
+
+### UI 组件
+
+- `src/components/ui/UiTextField.vue`：带标签、前缀与提示文案的文本框。
+- `src/components/ui/UiSelect.vue`：支持占位、点击外部收起的下拉框。
+- `src/components/ui/UiTable.vue`：带标题、子标题与可插槽渲染单元格的通用表格。
 
 ## 请求封装
 
