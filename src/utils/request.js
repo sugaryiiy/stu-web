@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // 创建 axios 实例
 const service = axios.create({
-  baseURL: '/api',    // 统一的接口前缀
+  baseURL: 'http://localhost:8888/api',    // 统一的接口前缀
   timeout: 8000       // 超时时间
 })
 
@@ -32,13 +32,13 @@ service.interceptors.response.use(
       return res   // 这里统一返回 data
     },
     (error) => {
-      if (error?.response?.status === 401) {
-        localStorage.removeItem('token')
-        // 避免在非浏览环境调用 window
-        if (typeof window !== 'undefined') {
-          window.location.href = '/login'
+        if (error?.response?.status === 401) {
+            localStorage.removeItem('token')
+            // 避免在非浏览环境调用 window
+            if (typeof window !== 'undefined') {
+                window.location.href = '/login'
+            }
         }
-      }
       console.error('Request Error:', error)
       return Promise.reject(error)
     }
