@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // 创建 axios 实例
 const service = axios.create({
-  baseURL: '/api',    // 统一的接口前缀
+  baseURL: 'http://localhost:8888/api',    // 统一的接口前缀
   timeout: 8000       // 超时时间
 })
 
