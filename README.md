@@ -38,3 +38,8 @@ npm run preview
 ```
 
 如需自定义接口地址，可在 `src/App.vue` 中调整 `fetch('/api/dashboard')` 的路径。
+
+## AJAX 组件
+
+- `src/components/AjaxProvider.vue` 封装了通用的请求逻辑，挂载后可自动触发接口调用，并通过事件或插槽暴露 `loading`、`error`、`data` 与 `refresh` 方法。
+- 在 `App.vue` 中通过 `<AjaxProvider url="/api/dashboard" @success="applyResponse" />` 使用，用于同步后台数据，并在请求失败时可点击“重试”按钮再次发起请求。

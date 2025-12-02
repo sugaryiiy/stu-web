@@ -4,9 +4,18 @@
     <main class="content">
       <TopBar />
 
+      <AjaxProvider
+        ref="dashboardLoader"
+        url="/api/dashboard"
+        @success="applyResponse"
+        @error="(msg) => (error = msg)"
+        @loading="(state) => (loading = state)"
+      />
+
       <div class="status-row" v-if="loading || error">
         <div v-if="loading" class="pill info">后台数据同步中…</div>
         <div v-else class="pill warning">{{ error }}</div>
+        <button v-if="error" class="ghost compact" @click="refreshDashboard">重试</button>
       </div>
 
       <StatsGrid :cards="cards" />
@@ -22,7 +31,8 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
+import AjaxProvider from './components/AjaxProvider.vue'
 import ChannelPanel from './components/ChannelPanel.vue'
 import OrdersTable from './components/OrdersTable.vue'
 import Sidebar from './components/Sidebar.vue'
@@ -32,6 +42,7 @@ import TopBar from './components/TopBar.vue'
 
 const loading = ref(false)
 const error = ref('')
+const dashboardLoader = ref(null)
 
 const cards = ref([
   { title: 'GMV（今日）', value: '¥ 1,248,000', trend: 12.4, progress: 72 },
@@ -66,34 +77,9 @@ const applyResponse = (payload) => {
   if (Array.isArray(payload?.orders) && payload.orders.length) orders.value = payload.orders
 }
 
-const fetchDashboard = async () => {
-  loading.value = true
-  error.value = ''
-
-  try {
-    const response = await fetch('/api/dashboard', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-
-    if (!response.ok) {
-      throw new Error(`接口返回异常：${response.status}`)
-    }
-
-    const payload = await response.json()
-    applyResponse(payload)
-  } catch (err) {
-    error.value = err.message || '拉取数据失败'
-  } finally {
-    loading.value = false
-  }
+const refreshDashboard = () => {
+  dashboardLoader.value?.refresh?.()
 }
-
-onMounted(() => {
-  fetchDashboard()
-})
 </script>
 
 <style scoped>
@@ -116,6 +102,12 @@ onMounted(() => {
   gap: 8px;
   align-items: center;
   margin-top: -4px;
+}
+
+.compact {
+  padding: 8px 12px;
+  font-size: 12px;
+  line-height: 1;
 }
 
 .panels-grid {
