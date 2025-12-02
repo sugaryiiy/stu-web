@@ -1,6 +1,6 @@
 export async function request({
   url,
-  method,
+  method = 'GET',
   headers,
   body = null
 } = {}) {
@@ -8,7 +8,7 @@ export async function request({
     throw new Error('请求地址不能为空')
   }
 
-  const normalizedMethod = (method || (body ? 'POST' : 'GET')).toUpperCase()
+  const normalizedMethod = method.toUpperCase()
   const isJsonBody = body && typeof body === 'object' && !(body instanceof FormData)
   const normalizedHeaders = new Headers(headers || {})
 
