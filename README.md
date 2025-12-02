@@ -35,6 +35,33 @@ npm run preview
     { "id": "#2024120081", "channel": "抖音直播", "amount": 3280, "status": "已完成" }
   ]
 }
+# stu-web 请求工具
+
+`src/utils/request.js` 提供了一个基于 `fetch` 的简单封装，支持 GET、POST、PUT、DELETE 等任意 HTTP 方法，并能根据返回的 `Content-Type` 自动解析 JSON 或返回文本。
+
+## 使用示例
+
+```js
+import { request } from './src/utils/request.js'
+
+// GET 请求
+const data = await request({ url: '/api/user' })
+
+// POST 请求（JSON）
+await request({
+  url: '/api/user',
+  method: 'POST',
+  body: { name: '张三' }
+})
+
+// 上传表单
+const formData = new FormData()
+formData.append('file', file)
+await request({
+  url: '/api/upload',
+  method: 'POST',
+  body: formData
+})
 ```
 
 如需自定义接口地址，可在 `src/views/Overview/OverviewPage.vue` 中调整 `request({ url: '/api/dashboard' })` 的路径。
@@ -57,3 +84,4 @@ npm run preview
 
 - `src/request/request.js` 提供了统一的请求方法，默认使用 `GET` 并对 JSON 请求体和接口异常进行封装。
 - 总览页通过 `request({ url: '/api/dashboard' })` 拉取仪表盘数据，若请求失败会在页面顶部显示错误提示并提供“重试”按钮。
+> 注意：GET 请求会自动忽略 body；当 body 是普通对象时会自动序列化为 JSON 并补全 `Content-Type` 头。
