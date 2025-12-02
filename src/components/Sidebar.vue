@@ -3,7 +3,7 @@
     <div class="brand">
       <div class="brand-logo">V</div>
       <div class="brand-meta">
-        <p class="brand-title">Vue 管理系统</p>
+        <p class="brand-title">系统工具集</p>
         <p class="brand-sub">数据运营面板</p>
       </div>
     </div>
@@ -20,11 +20,6 @@
         {{ item.label }}
       </button>
     </nav>
-    <div class="upgrade">
-      <p>专属运营顾问</p>
-      <p class="muted">获取定制化增长方案</p>
-      <button class="primary">预约沟通</button>
-    </div>
   </aside>
 </template>
 

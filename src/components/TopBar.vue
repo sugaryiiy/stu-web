@@ -5,9 +5,7 @@
       <p class="subtitle">{{ subtitle }}</p>
     </div>
     <div class="topbar-actions">
-      <button class="ghost">导出报表</button>
-      <button class="primary">新建活动</button>
-      <button class="ghost" @click="handleLogout">退出登录</button>
+      <button class="primary" @click="handleLogout">退出登录</button>
     </div>
   </header>
 </template>
