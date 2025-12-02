@@ -6,7 +6,7 @@ IMAGE_REF := $(REGISTRY)/$(IMAGE):$(TAG)
 .PHONY: build push
 
 build:
-docker build -t $(IMAGE_REF) .
+	docker build -t $(IMAGE_REF) .
 
 push: build
-docker push $(IMAGE_REF)
+	docker push $(IMAGE_REF)
