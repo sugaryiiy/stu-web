@@ -115,7 +115,7 @@ function resolveLocation(target, routes) {
   }
 }
 
-const RouterView = {
+export const RouterView = {
   name: 'RouterView',
   setup() {
     const route = useRoute()
