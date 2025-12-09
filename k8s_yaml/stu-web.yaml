@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stu-web-deployment
+  namespace: stu-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: __MODULE__
+  template:
+    metadata:
+      labels:
+        app: __MODULE__
+    spec:
+      imagePullSecrets:
+        - name: my-registry-secret
+      containers:
+        - name: stu-web-container
+          image: __IMAGE_VERSION__
+          ports:
+            - containerPort: 80
+          env:
+            - name: VUE_APP_BASE_API
+              value: "http://your_api_service"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stu-web-service
+  namespace: stu-system
+spec:
+  selector:
+    app: __MODULE__
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30119
+  type: NodePort
